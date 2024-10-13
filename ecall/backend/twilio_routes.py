@@ -54,7 +54,8 @@ async def options_make_call():
 async def make_call(request: Request, response: Response):
     try:
         body = await request.json()
-        to_number = body.get('to', "+12066653279")
+        # to_number = body.get('to', "+12066653279")
+        to_number = "+12066653279"
         from_number = '+18666064078'
 
         # Make the call here with Twilio
@@ -64,11 +65,12 @@ async def make_call(request: Request, response: Response):
             from_=from_number
         )
 
+        print(f"Call SID: {call.sid}")
+
+        print("hello world!")
+
         response.headers["Access-Control-Allow-Origin"] = "*"
         return JSONResponse(content={'message': 'Call initiated', 'call_sid': call.sid})
     except Exception as e:
+        print(f"Error: {str(e)}")  # Log the error for Heroku logs
         return JSONResponse(content={'error': str(e)}, status_code=500)
-
-
-
-print(f"Call SID: {call.sid}")
