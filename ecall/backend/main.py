@@ -3,7 +3,7 @@ import json
 import requests
 import network_as_code as nac
 
-print(os.getcwd())  # For debugging current working directory
+# print(os.getcwd())  # For debugging current working directory
 
 # We initialize the client object with your application key
 client = nac.NetworkAsCodeClient(
@@ -54,7 +54,7 @@ location.longitude = 13.4050
 
 # Seoul, South Korea
 location.latitude = 37.5665
-location.longitude = 126.9780   
+location.longitude = 126.9780
 
 # Auckland, New Zealand
 location.latitude = -36.8485
@@ -68,13 +68,9 @@ location.longitude = 35.2137
 location.latitude = 55.7558
 location.longitude = 37.6173
 
-# Taipei, Taiwan
-location.latitude = 25.0330
-location.longitude = 121.5654
-
 # Saigon, Vietnam
-location.latitude = 10.8231
-location.longitude = 106.6297
+# location.latitude = 10.8231
+# location.longitude = 106.6297
 
 api_key = "AIzaSyAgfKGbMWB13Dpth5lKIf1eeyin-szXtyE"
 
@@ -95,14 +91,14 @@ country = ""
 if response.status_code == 200 and data['status'] == 'OK':
     # Extract the compound_code from plus_code
     plus_code = data.get('plus_code', {}).get('compound_code', '')
-    
+
     if plus_code:
         # Split the compound_code by commas to extract city and country
         parts = plus_code.split(',')
-        
+
         # Country is the last part
         country = parts[-1].strip()  # Last part
-        
+
         # For city, remove parts with numbers
         city_parts = parts[-2].split()  # Split by space
         city = ' '.join([part for part in city_parts if not any(char.isdigit() for char in part)]).strip() # Removes digits
@@ -125,22 +121,22 @@ def get_best_emergency_number(country_data):
     dispatch_numbers = country_data.get('Dispatch', {}).get('All', [])
     if dispatch_numbers and dispatch_numbers[0]:
         return dispatch_numbers[0]  # Return the Dispatch number if available
-    
+
     # Check for Police number
     police_numbers = country_data.get('Police', {}).get('All', [])
     if police_numbers and police_numbers[0]:
         return police_numbers[0]  # Return the Police number if available
-    
+
     # Check for Ambulance number
     ambulance_numbers = country_data.get('Ambulance', {}).get('All', [])
     if ambulance_numbers and ambulance_numbers[0]:
         return ambulance_numbers[0]  # Return the Ambulance number if available
-    
+
     # Check for Fire number
     fire_numbers = country_data.get('Fire', {}).get('All', [])
     if fire_numbers and fire_numbers[0]:
         return fire_numbers[0]  # Return the Fire number if available
-    
+
     return None  # Return None if no emergency number found
 
 # Query by country

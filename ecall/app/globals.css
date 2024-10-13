@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,12 +7,15 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --red: #e61919;
+  --progress: 0deg;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --red: #e61919;
   }
 }
 
@@ -24,4 +29,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.progress-bar {
+  position: relative;
+  background: conic-gradient(var(--red) var(--progress), var(--background) 0deg);
 }
