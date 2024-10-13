@@ -2,19 +2,16 @@ import os
 import json
 import requests
 import network_as_code as nac
-from fastapi import FastAPI
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
 
 # print(os.getcwd())  # For debugging current working directory
 
-app = FastAPI() #for sending data
-
-@app.get("/data")
-def get_data():
-    return {"city": city, "country": country_name, "number": best_number}
-
 # We initialize the client object with your application key
 client = nac.NetworkAsCodeClient(
-    token = "e6988a47acmsh6730dcd750e7cecp12ccebjsn097e655f1132"
+    token = os.getenv('NETWORK_AS_CODE_API_KEY')
 )
 
 # Create a device object for the mobile device we want to use
@@ -76,10 +73,10 @@ location.latitude = 55.7558
 location.longitude = 37.6173
 
 # Saigon, Vietnam
-# location.latitude = 10.8231
-# location.longitude = 106.6297
+location.latitude = 10.8231
+location.longitude = 106.6297
 
-api_key = "AIzaSyAgfKGbMWB13Dpth5lKIf1eeyin-szXtyE"
+api_key = os.getenv('GOOGLE_CLOUD_CONSOLE_API_KEY')
 
 # Define the URL for the Google Geocoding API
 url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={location.latitude},{location.longitude}&key={api_key}"
