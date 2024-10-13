@@ -42,6 +42,24 @@ export default function calling() {
 
   }, [data]);
 
+  const makeCall = async () => {
+    try {
+      const response = await fetch("https://e-call-cebb9bb9b3b7.herokuapp.com/make_call", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: "123",
+        }),
+      });
+
+      console.log("called!");
+
+    } catch (error) {
+      // setCallStatus(`Error: ${error}`);
+    }
+  };
 
   const tickTimer = () => {
     countdown--;
@@ -50,7 +68,9 @@ export default function calling() {
     if (countdown === 0) {
       console.log("MAKE CALL");
       clearInterval(timerId);
-      router.push(`/calling`);
+      // router.push(`/calling`);
+      makeCall();
+      console.log("calling");
     }
   }
 

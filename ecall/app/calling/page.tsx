@@ -48,7 +48,7 @@ export default function calling() {
         </div>
 
         <section className="h-[80%] w-full flex flex-col justify-between items-center">
-          <h1 className="text-7xl mx-auto mt-[15%]">{data?.number}</h1>
+          <h1 className="text-6xl font-bold mx-auto mt-[15%]">{data?.number}</h1>
           <div className="w-[90%] h-[30%] flex flex-col justify-evenly items-center">
             <div className="flex justify-evenly w-full">
               <div className="w-[75px] h-[75px] rounded-[100%] bg-foreground"></div>
