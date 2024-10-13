@@ -2,8 +2,15 @@ import os
 import json
 import requests
 import network_as_code as nac
+from fastapi import FastAPI
 
 # print(os.getcwd())  # For debugging current working directory
+
+app = FastAPI() #for sending data
+
+@app.get("/data")
+def get_data():
+    return {"city": city, "country": country_name, "number": best_number}
 
 # We initialize the client object with your application key
 client = nac.NetworkAsCodeClient(
