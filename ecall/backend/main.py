@@ -13,11 +13,9 @@ client = nac.NetworkAsCodeClient(
 # Create a device object for the mobile device we want to use
 my_device = client.devices.get(
     "device@testcsp.net",
-    
     # The phone number does not accept spaces or parentheses
     phone_number="+17757729258"
 )
-
 # Location is retrieved using API call
 location = my_device.location(max_age=60)
 
@@ -33,6 +31,50 @@ location.longitude = 116.4074
 # Seattle, USA
 location.latitude = 47.6062
 location.longitude = -122.3321
+
+# London, UK
+location.latitude = 51.5074
+location.longitude = -0.1278
+
+# Johannesburg, South Africa
+location.latitude = -26.2041
+location.longitude = 28.0473
+
+# Dublin, Ireland
+location.latitude = 53.3498
+location.longitude = -6.2603
+
+# Manchester, UK
+location.latitude = 53.4808
+location.longitude = -2.2426
+
+# Berlin, Germany
+location.latitude = 52.5200
+location.longitude = 13.4050
+
+# Seoul, South Korea
+location.latitude = 37.5665
+location.longitude = 126.9780   
+
+# Auckland, New Zealand
+location.latitude = -36.8485
+location.longitude = 174.7633
+
+# Jerusalem, Israel
+location.latitude = 31.7683
+location.longitude = 35.2137
+
+# Moscow, Russia
+location.latitude = 55.7558
+location.longitude = 37.6173
+
+# Taipei, Taiwan
+location.latitude = 25.0330
+location.longitude = 121.5654
+
+# Saigon, Vietnam
+location.latitude = 10.8231
+location.longitude = 106.6297
 
 api_key = "AIzaSyAgfKGbMWB13Dpth5lKIf1eeyin-szXtyE"
 
@@ -51,19 +93,19 @@ country = ""
 
 # Check if the API request was successful
 if response.status_code == 200 and data['status'] == 'OK':
-    # Extract the formatted address and country from the response
-    results = data['results']
-    if results:
-        # Loop through the address components to find the city and country
-        for component in results[0]['address_components']:
-            if 'locality' in component['types']:  # Check for city
-                city = component['long_name']
-            elif 'administrative_area_level_2' in component['types']:  # Fallback for city (in some cases)
-                city = component['long_name']
-            elif 'postal_town' in component['types']:  # Another fallback for city in some countries
-                city = component['long_name']
-            if 'country' in component['types']:  # Check for country
-                country = component['long_name']
+    # Extract the compound_code from plus_code
+    plus_code = data.get('plus_code', {}).get('compound_code', '')
+    
+    if plus_code:
+        # Split the compound_code by commas to extract city and country
+        parts = plus_code.split(',')
+        
+        # Country is the last part
+        country = parts[-1].strip()  # Last part
+        
+        # For city, remove parts with numbers
+        city_parts = parts[-2].split()  # Split by space
+        city = ' '.join([part for part in city_parts if not any(char.isdigit() for char in part)]).strip() # Removes digits
 
 # Now, the variables `city` and `country` will hold the respective values.
 print(f"City: {city}")
