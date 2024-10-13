@@ -23,6 +23,9 @@ const config: Config = {
             '0 45px 65px rgba(230, 25, 25, 0.15)'
         ]
       },
+      backgroundImage: {
+        'call-bg': "url('/public/call-bg.jpeg')",
+      }
       // boxShadow: {
       //   '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
       //   '4xl': [

@@ -8,7 +8,10 @@
   --background: #ffffff;
   --foreground: #171717;
   --red: #e61919;
-  --progress: 0deg;
+  --progress1: 0deg;
+  --progress2: 0deg;
+  --progress3: 0deg;
+  --progress4: 0deg;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,5 +36,20 @@ body {
 
 .progress-bar {
   position: relative;
-  background: conic-gradient(var(--red) var(--progress), var(--background) 0deg);
+  background: conic-gradient(var(--red) var(--progress1), var(--background) 0deg);
+}
+
+.progress-bar-2 {
+  position: relative;
+  background: conic-gradient(var(--red) var(--progress2), var(--background) 0deg);
+}
+
+.progress-bar-3 {
+  position: relative;
+  background: conic-gradient(var(--red) var(--progress3), var(--background) 0deg);
+}
+
+.progress-bar-4 {
+  position: relative;
+  background: conic-gradient(var(--red) var(--progress4), var(--background) 0deg);
 }

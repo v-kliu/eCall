@@ -1,7 +1,9 @@
 'use client'
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from "next/navigation";
+import callPhone from "/public/call-phone.png"
+
 
 type Data = {
   city: string;
@@ -11,18 +13,10 @@ type Data = {
 
 export default function calling() {
 
-  let region = "Jakarta";
-  let country = "IDN";
-  let number = "112";
-  let countdown = 3;
-  let timerId: NodeJS.Timeout;
-  const countdownDisplay = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
-    timerId = setInterval(tickTimer, 1000);
 
 
     const fetchData = async () => {
@@ -43,32 +37,35 @@ export default function calling() {
   }, [data]);
 
 
-  const tickTimer = () => {
-    countdown--;
-    if (countdownDisplay.current)
-      countdownDisplay.current.textContent = countdown.toString();
-    if (countdown === 0) {
-      console.log("MAKE CALL");
-      clearInterval(timerId);
-      router.push(`/calling`);
-    }
-  }
-
   return (
     <div className="flex items-center justify-center h-screen w-screen">
-      <main className="relative border-[5px] border-solid border-white h-[844px] w-[390px] rounded-[30px] flex flex-col justify-evenly">
+      <main className="relative border-[5px] border-solid border-white h-[844px] w-[390px] rounded-[30px] flex flex-col justify-evenly bg-[url('/call-bg.jpeg')]">
+
         <div className="w-[225px] h-[25px] bg-foreground absolute bg-blue-500 transform -translate-x-[50%] left-[50%] top-0
           rounded-b-[15px] flex items-center justify-center">
           <div className="relative w-[75px] h-[10px] bg-background rounded-lg mr-[20px]"/>
           <div className="relative w-[10px] h-[10px] bg-background rounded-[100%]"/>
         </div>
-        <div className="mx-auto">
-          <h1 className="m-auto text-[60pt] text-center font-inter font-semibold mb-[5%]">CALLING HELP</h1>
-          <div className="w-[80%] mx-auto text-xl text-center font-semibold font-inter flex justify-evenly">
-            <h2>{data?.city}, {data?.country}</h2><h2> - </h2><h2>{data?.number}</h2>
+
+        <section className="h-[80%] w-full flex flex-col justify-between items-center">
+          <h1 className="text-7xl mx-auto mt-[15%]">{data?.number}</h1>
+          <div className="w-[90%] h-[30%] flex flex-col justify-evenly items-center">
+            <div className="flex justify-evenly w-full">
+              <div className="w-[75px] h-[75px] rounded-[100%] bg-foreground"></div>
+              <div className="w-[75px] h-[75px] rounded-[100%] bg-gray-900"></div>
+              <div className="w-[75px] h-[75px] rounded-[100%] bg-gray-900"></div>
+            </div>
+            <div className="flex justify-evenly w-full">
+              <div className="w-[75px] h-[75px] rounded-[100%] bg-gray-900"></div>
+              <div className="w-[75px] h-[75px] rounded-[100%] bg-red">
+                <Image src={callPhone} alt="call icon"/>
+              </div>
+              <div className="w-[75px] h-[75px] rounded-[100%] bg-gray-900"></div>
+            </div>
           </div>
-        </div>
-        <h1 ref={countdownDisplay} className="text-[200pt] text-center  font-bold leading-none">3</h1>
+        </section>
+
+
         <div className="w-[150px] h-[5px] bg-foreground absolute bg-blue-500 transform -translate-x-[50%] bottom-[2%] left-[50%]
           rounded-[15px] flex items-center justify-center"/>
       </main>
