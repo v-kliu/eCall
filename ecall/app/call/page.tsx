@@ -13,7 +13,36 @@ export default function calling() {
 
   useEffect(() => {
     timerId = setInterval(tickTimer, 1000);
+    makeRequest();
   }, []);
+
+  async function makeRequest() {
+    let url = "/data"; // some requests require parameters
+    try {
+      let result = await fetch(url)
+      await statusCheck(result)
+      // result = await result.text()) // use this if your data comes in text
+      result = await result.json() // or this if your data comes in JSON
+      processData(result)
+    } catch(err) {
+      handleError(err); // define a user-friendly error-message function
+    }
+  }
+
+  async function statusCheck(res) {
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+    return res;
+  }
+
+  function handleError(err) {
+    console.error(err);
+  }
+
+  function processData(result) {
+    console.log(result);
+  }
 
   const tickTimer = () => {
     countdown--;
