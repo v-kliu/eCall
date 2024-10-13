@@ -1,0 +1,7 @@
+fastapi==0.95.2
+aiofiles==23.1.0
+uvicorn==0.22.0  # Ensure uvicorn is installed if you use it in Procfile
+requests==2.31.0  # For making HTTP requests
+python-dotenv==1.0.0  # For loading environment variables from .env
+network_as_code  # Assuming this package is available via pip
+twilio

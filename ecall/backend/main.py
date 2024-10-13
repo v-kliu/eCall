@@ -4,6 +4,7 @@ import requests
 import network_as_code as nac
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 # print(os.getcwd())  # For debugging current working directory
 
@@ -11,6 +12,23 @@ from fastapi import FastAPI
 load_dotenv()
 
 app = FastAPI() #for sending data
+
+# Allowed origins for your frontend (both local and production URLs)
+origins = [
+    "http://localhost:3000",  # Allow local development frontend
+    "https://e-call.vercel.app",  # Allow Vercel or other deployed frontend (replace with your actual Vercel URL)
+    # Add more allowed origins if needed
+]
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins, or specify specific origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
+
 
 @app.get("/data")
 def get_data():
@@ -36,53 +54,53 @@ location = my_device.location(max_age=60)
 location.latitude = -6.200000
 location.longitude = 106.816666
 
-# Beijing China
-location.latitude = 39.9042
-location.longitude = 116.4074
+# # Beijing China
+# location.latitude = 39.9042
+# location.longitude = 116.4074
 
-# Seattle, USA
-location.latitude = 47.6062
-location.longitude = -122.3321
+# # Seattle, USA
+# location.latitude = 47.6062
+# location.longitude = -122.3321
 
-# London, UK
-location.latitude = 51.5074
-location.longitude = -0.1278
+# # London, UK
+# location.latitude = 51.5074
+# location.longitude = -0.1278
 
-# Johannesburg, South Africa
-location.latitude = -26.2041
-location.longitude = 28.0473
+# # Johannesburg, South Africa
+# location.latitude = -26.2041
+# location.longitude = 28.0473
 
-# Dublin, Ireland
-location.latitude = 53.3498
-location.longitude = -6.2603
+# # Dublin, Ireland
+# location.latitude = 53.3498
+# location.longitude = -6.2603
 
-# Manchester, UK
-location.latitude = 53.4808
-location.longitude = -2.2426
+# # Manchester, UK
+# location.latitude = 53.4808
+# location.longitude = -2.2426
 
-# Berlin, Germany
-location.latitude = 52.5200
-location.longitude = 13.4050
+# # Berlin, Germany
+# location.latitude = 52.5200
+# location.longitude = 13.4050
 
-# Seoul, South Korea
-location.latitude = 37.5665
-location.longitude = 126.9780
+# # Seoul, South Korea
+# location.latitude = 37.5665
+# location.longitude = 126.9780
 
-# Auckland, New Zealand
-location.latitude = -36.8485
-location.longitude = 174.7633
+# # Auckland, New Zealand
+# location.latitude = -36.8485
+# location.longitude = 174.7633
 
-# Jerusalem, Israel
-location.latitude = 31.7683
-location.longitude = 35.2137
+# # Jerusalem, Israel
+# location.latitude = 31.7683
+# location.longitude = 35.2137
 
-# Moscow, Russia
-location.latitude = 55.7558
-location.longitude = 37.6173
+# # Moscow, Russia
+# location.latitude = 55.7558
+# location.longitude = 37.6173
 
-# Saigon, Vietnam
-location.latitude = 10.8231
-location.longitude = 106.6297
+# # Saigon, Vietnam
+# location.latitude = 10.8231
+# location.longitude = 106.6297
 
 api_key = os.getenv('GOOGLE_CLOUD_CONSOLE_API_KEY')
 
@@ -166,3 +184,7 @@ if country_data:
     print(f"Best emergency number for {country_name}: {best_number}")
 else:
     print(f"No emergency data found for {country_name}")
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
