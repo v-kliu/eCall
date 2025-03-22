@@ -2,6 +2,8 @@
 
 eCall is a global emergency assistance platform developed at **DubHacks** to help travelers quickly reach local emergency services—no matter where they are in the world. By combining real-time geolocation with intelligent translation and communication APIs, eCall bridges language and logistical barriers during emergencies abroad.
 
+Devpost Submission: https://devpost.com/software/ecall-emergency-call-service 
+
 ---
 
 ## 🚀 Features
@@ -42,15 +44,10 @@ Building eCall taught us how to:
 
 ## 👨‍💻 Team
 
-- Victor Liu  
-- Meraj Naqi  
-- [Add teammates here if desired]
-
----
-
-## 📸 Demo
-
-[Insert Demo Link or GIF here]
+- Victor Liu
+- Andrew Chen
+- Samuel Purnama
+- Reuben Santoso
 
 ---
 
